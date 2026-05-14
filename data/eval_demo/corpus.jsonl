@@ -1,0 +1,20 @@
+{"_id": "d1", "title": "", "text": "Machine learning models learn patterns from data without being explicitly programmed."}
+{"_id": "d2", "title": "", "text": "Deep learning relies on neural networks with multiple hidden layers."}
+{"_id": "d3", "title": "", "text": "Transformer architectures dominate natural language processing tasks."}
+{"_id": "d4", "title": "", "text": "Vector databases index high-dimensional embeddings for similarity search."}
+{"_id": "d5", "title": "", "text": "FAISS is a library for efficient similarity search of dense vectors."}
+{"_id": "d6", "title": "", "text": "Approximate nearest neighbour algorithms trade recall for speed."}
+{"_id": "d7", "title": "", "text": "Kubernetes orchestrates containerised workloads across nodes."}
+{"_id": "d8", "title": "", "text": "Prometheus scrapes time-series metrics from instrumented endpoints."}
+{"_id": "d9", "title": "", "text": "Observability covers logs, metrics, and distributed traces."}
+{"_id": "d10", "title": "", "text": "Italian pasta is made from durum wheat semolina and water."}
+{"_id": "d11", "title": "", "text": "Thai green curry uses coconut milk, green chillies, and Thai basil."}
+{"_id": "d12", "title": "", "text": "Sushi rice is short-grain and seasoned with rice vinegar and sugar."}
+{"_id": "d13", "title": "", "text": "Espresso is brewed by forcing hot water through finely ground coffee."}
+{"_id": "d14", "title": "", "text": "Relational databases enforce schemas and store data in normalised tables."}
+{"_id": "d15", "title": "", "text": "Postgres supports JSONB, full-text search, and write-ahead logging."}
+{"_id": "d16", "title": "", "text": "Sharding distributes data across multiple servers by partition key."}
+{"_id": "d17", "title": "", "text": "Redis is an in-memory data structure store used for caching and queues."}
+{"_id": "d18", "title": "", "text": "Kafka is a distributed log used for event streaming at high throughput."}
+{"_id": "d19", "title": "", "text": "ONNX is an open exchange format for representing neural network models."}
+{"_id": "d20", "title": "", "text": "Model quantisation reduces precision to lower memory and increase speed."}
