@@ -1,0 +1,19 @@
+services:
+  api:
+    build: .
+    image: vector-search-api:dev
+    ports:
+      - "8000:8000"
+    environment:
+      MODEL_NAME: sentence-transformers/all-MiniLM-L6-v2
+      HTTP_ADDR: ":8000"
+      LOG_LEVEL: info
+    volumes:
+      - ./data:/home/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health').read()"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
