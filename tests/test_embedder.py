@@ -1,6 +1,6 @@
 import numpy as np
 
-from search.embedder import HashEmbedder
+from search.embedder import HashEmbedder, SentenceTransformerEmbedder
 
 
 def test_dim_matches():
@@ -40,3 +40,15 @@ def test_encode_empty_returns_empty_matrix():
     e = HashEmbedder(dim=16)
     out = e.encode([])
     assert out.shape == (0, 16)
+
+
+class _FakeModel:
+    def get_sentence_embedding_dimension(self):
+        return 384
+
+
+def test_sentence_transformer_dim_uses_real_api():
+    # skip the real SentenceTransformer ctor, just check dim reads the right method
+    e = SentenceTransformerEmbedder.__new__(SentenceTransformerEmbedder)
+    e._model = _FakeModel()
+    assert e.dim == 384

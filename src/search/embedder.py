@@ -19,8 +19,7 @@ class SentenceTransformerEmbedder:
 
     @property
     def dim(self) -> int:
-        getter = getattr(self._model, "get_embedding_dimension", None) or self._model.get_sentence_embedding_dimension
-        return int(getter())
+        return int(self._model.get_sentence_embedding_dimension())
 
     def encode(self, texts: list[str]) -> np.ndarray:
         if not texts:
