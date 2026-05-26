@@ -8,7 +8,11 @@ from .schemas import Document
 
 
 class DocumentStore:
-    """Append-only JSONL store keyed by document id. Holds the corpus in memory."""
+    """In-memory document map, keyed by id, persisted as JSONL.
+
+    The whole corpus lives in a dict; save() rewrites the file from scratch.
+    Fine for the corpus sizes this thing targets, not for millions of docs.
+    """
 
     def __init__(self) -> None:
         self._docs: dict[str, Document] = {}
@@ -52,5 +56,6 @@ class DocumentStore:
                 line = line.strip()
                 if not line:
                     continue
-                store._docs[Document.model_validate_json(line).id] = Document.model_validate_json(line)
+                doc = Document.model_validate_json(line)
+                store._docs[doc.id] = doc
         return store
