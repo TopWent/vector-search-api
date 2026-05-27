@@ -17,11 +17,13 @@ def test_empty_search_returns_empty_list():
 
 def test_add_then_search_returns_nearest():
     idx = VectorIndex(dim=4)
-    vectors = np.stack([
-        _unit([1, 0, 0, 0]),
-        _unit([0, 1, 0, 0]),
-        _unit([0, 0, 1, 0]),
-    ])
+    vectors = np.stack(
+        [
+            _unit([1, 0, 0, 0]),
+            _unit([0, 1, 0, 0]),
+            _unit([0, 0, 1, 0]),
+        ]
+    )
     idx.add(["a", "b", "c"], vectors)
 
     result = idx.search(_unit([1, 0, 0, 0]), k=2)
@@ -80,3 +82,13 @@ def test_save_and_load_round_trip(tmp_path):
 def test_load_missing_path_returns_empty_index(tmp_path):
     restored = VectorIndex.load(tmp_path / "missing.bin", dim=4)
     assert restored.size == 0
+
+
+def test_load_rejects_dim_mismatch(tmp_path):
+    path = tmp_path / "idx.bin"
+    idx = VectorIndex(dim=4)
+    idx.add(["a"], np.stack([_unit([1, 0, 0, 0])]))
+    idx.save(path)
+
+    with pytest.raises(ValueError, match="dim"):
+        VectorIndex.load(path, dim=8)

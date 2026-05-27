@@ -48,9 +48,7 @@ class VectorIndex:
             k = min(k, self.size)
             scores, idx = self._index.search(query.reshape(1, -1), k)
             return [
-                (self._ids[i], float(s))
-                for s, i in zip(scores[0], idx[0], strict=True)
-                if i != -1
+                (self._ids[i], float(s)) for s, i in zip(scores[0], idx[0], strict=True) if i != -1
             ]
 
     def save(self, path: str | Path) -> None:
@@ -66,7 +64,10 @@ class VectorIndex:
         instance = cls(dim)
         if not path.exists():
             return instance
-        instance._index = faiss.read_index(str(path))
+        loaded = faiss.read_index(str(path))
+        if loaded.d != dim:
+            raise ValueError(f"index on disk has dim {loaded.d}, expected {dim} (model changed?)")
+        instance._index = loaded
         ids_path = path.with_suffix(".ids")
         if ids_path.exists():
             instance._ids = ids_path.read_text(encoding="utf-8").splitlines()
