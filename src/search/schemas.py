@@ -1,9 +1,14 @@
-from pydantic import BaseModel, Field
+from typing import Annotated
+
+from pydantic import BaseModel, Field, StringConstraints
+
+# embed/upsert text fields share this cap so one request cannot blow up memory
+BoundedText = Annotated[str, StringConstraints(min_length=1, max_length=32768)]
 
 
 class Document(BaseModel):
     id: str = Field(min_length=1, max_length=128)
-    text: str = Field(min_length=1)
+    text: BoundedText
     metadata: dict[str, str] = Field(default_factory=dict)
 
 
@@ -33,7 +38,7 @@ class SearchResponse(BaseModel):
 
 
 class EmbedRequest(BaseModel):
-    texts: list[str] = Field(min_length=1, max_length=256)
+    texts: list[BoundedText] = Field(min_length=1, max_length=256)
 
 
 class EmbedResponse(BaseModel):
